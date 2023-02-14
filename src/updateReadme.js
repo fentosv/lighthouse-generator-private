@@ -18,7 +18,11 @@ const updateReadme = async ({ mdName, badgesMdText }) => {
       )
     : currentReadme.replace(START_REPLACE_STR, replacingText)
 
-  await writeFile(mdName, newReadme, 'utf-8')
+  const mdFilePath = process.env.GITHUB_WORKSPACE
+    ? path.join(process.env.GITHUB_WORKSPACE, mdName)
+    : mdName
+
+  await writeFile(mdFilePath, newReadme, 'utf-8')
 }
 
 export default updateReadme

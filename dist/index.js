@@ -72173,7 +72173,11 @@ const updateReadme = async ({ mdName, badgesMdText }) => {
       )
     : currentReadme.replace(START_REPLACE_STR, replacingText)
 
-  await (0,external_node_fs_promises_namespaceObject.writeFile)(mdName, newReadme, 'utf-8')
+  const mdFilePath = process.env.GITHUB_WORKSPACE
+    ? path.join(process.env.GITHUB_WORKSPACE, mdName)
+    : mdName
+
+  await (0,external_node_fs_promises_namespaceObject.writeFile)(mdFilePath, newReadme, 'utf-8')
 }
 
 /* harmony default export */ const src_updateReadme = (updateReadme);
