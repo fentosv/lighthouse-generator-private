@@ -9,6 +9,7 @@ inputs:
     default: 'README.md'
   url:
     description: 'URL to audit'
+    required: true
   commitMessage:
     description: 'Commit message'
     default: '🚦 Add lighthouse bagdes!'
