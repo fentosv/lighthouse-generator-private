@@ -1,7 +1,7 @@
 {
   "name": "lighthouse-badges-generator",
   "version": "0.0.1",
-  "description": "",
+  "description": "Creates lighthouse badges for your README",
   "main": "index.js",
   "type": "module",
   "scripts": {
