@@ -3,13 +3,6 @@ import chromeLauncher from 'chrome-launcher'
 import makeBadgeSvg from './makeBadge.js'
 import updateReadme from './updateReadme.js'
 
-const flags = ['--headless', '--quiet']
-const chrome = await chromeLauncher.launch({ chromeFlags: flags })
-
-const options = {
-  logLevel: 'silent', // 'info'
-  port: chrome.port,
-}
 const config = {
   extends: 'lighthouse:default',
   settings: {
@@ -46,6 +39,13 @@ const percentToColor = (number) => {
 }
 
 const getLighthouseReport = async ({ url, mdName, badgeStyle }) => {
+  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless', '--quiet'] })
+
+  const options = {
+    logLevel: 'silent', // 'info'
+    port: chrome.port,
+  }
+
   const runnerResult = await lighthouse(url, options, config)
 
   // `.lhr` is the Lighthouse Result as a JS object
