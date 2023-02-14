@@ -1,13 +1,42 @@
 name: 'lighthouse-badges-generator'
 description: 'Greet someone and record the time'
 inputs:
-  commitMessage: # id of input
+  commitMessage:
     description: 'Commit message'
     required: true
     default: '🚦 Add lighthouse bagdes!'
-# outputs:
-#   time: # id of output
-#     description: 'The time we greeted you'
+  commitAuthor:
+    description: 'Commit author'
+    required: true
+    default: 'lighthouse-bot'
+  badgeStyle:
+    description: 'Badge Style: plastic, flat, flat-square, for-the-badge or social'
+    required: true
+    default: 'plastic'
+  mdName:
+    description: 'Name or file path to the MD file'
+    required: true
+    default: 'README.md'
+  url:
+    description: 'URL to audit'
+    required: true
+
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+    value: string
+
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: 'composite'
+  steps:
+    - run: node ${{ github.action_path }}/dist/index.js
+      shell: bash
+    - run: echo Hello ${{ inputs.name }}
+      shell: bash
+    - name: Push
+      shell: bash
+      run: |
+        git config --global user.name "${{ inputs.commitAuthor }}"
+        git config --global user.email "lighthouse@bot.com"
+        git commit -a -m "${{ inputs.commitMessage }}" 
+        git push

@@ -3,5 +3,5 @@
 - `badgeStyle`
 - `commitAuthor`
 - `commitMessage`
-- `mdFilePath`
+- `mdName`
 - `url`

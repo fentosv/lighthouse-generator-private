@@ -34,38 +34,43 @@ const config = {
   },
 }
 
-const runnerResult = await lighthouse('https://doscuadrados.es', options, config)
-// const runnerResult = await lighthouse('https://octagon-api.com', options, config)
-
-export const percentageToColor = (percentage) => {
-  if (percentage >= 95) return 'brightgreen'
-  if (percentage >= 90) return 'green'
-  if (percentage >= 75) return 'yellowgreen'
-  if (percentage >= 60) return 'yellow'
-  if (percentage >= 40) return 'orange'
-  return 'red'
+const percentToColor = (number) => {
+  if (number >= 95) return '#00FF00'
+  if (number >= 90) return '#7FFF00'
+  if (number >= 75) return '#B0FF00'
+  if (number >= 65) return '#FFFF00'
+  if (number >= 55) return '#FFC100'
+  if (number >= 40) return '#FF8C00'
+  if (number >= 20) return '#FF5700'
+  return '#FF0000'
 }
 
-// `.lhr` is the Lighthouse Result as a JS object
-const {
-  performance: { score: performance },
-  accessibility: { score: accessibility },
-  seo: { score: seo },
-  'best-practices': { score: bestPractices },
-} = runnerResult.lhr.categories
+const getLighthouseReport = async ({ url, mdName }) => {
+  const runnerResult = await lighthouse(url, options, config)
 
-const lighthouseReport = {
-  performance,
-  accessibility,
-  seo,
-  'best-practices': bestPractices,
+  // `.lhr` is the Lighthouse Result as a JS object
+  const {
+    performance: { score: performance },
+    accessibility: { score: accessibility },
+    seo: { score: seo },
+    'best-practices': { score: bestPractices },
+  } = runnerResult.lhr.categories
+
+  const lighthouseReport = {
+    performance,
+    accessibility,
+    seo,
+    'best-practices': bestPractices,
+  }
+
+  const badges = Object.entries(lighthouseReport).map(([key, value]) => {
+    const percentValue = value.float(2) * 100
+    return makeBadgeSvg({ label: key, message: percentValue, color: percentToColor(percentValue) })
+  })
+
+  updateReadme({ mdName, badgesMdText: badges.join('\n') })
+
+  await chrome.kill()
 }
 
-const badges = Object.entries(lighthouseReport).map(([key, value]) => {
-  console.log(key, value)
-  return makeBadgeSvg({ label: key, message: value, color: 'green' })
-})
-
-updateReadme({ mdName: 'TEMPLATE.md', badgesMdText: badges.join('\n') })
-
-await chrome.kill()
+// getLighthouseReport({ url: 'https://doscuadrados.es', mdName: 'TEMPLATE.md' })
