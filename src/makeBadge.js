@@ -13,7 +13,7 @@ const makeBadgeSvg = ({ label, message, color, badgeStyle }) => {
     style: badgeStyle, //'plastic', 'flat', 'flat-square', 'for-the-badge' or 'social'
   })
 
-  writeLocalFile(label, svg)
+  // writeLocalFile(label, svg)
   return svg
 }
 

@@ -72135,7 +72135,7 @@ const external_node_fs_promises_namespaceObject = __WEBPACK_EXTERNAL_createRequi
 
 
 const writeLocalFile = (name, data) => {
-  return (0,external_node_fs_promises_namespaceObject.writeFile)(`./assets/${name}.svg`, data, 'utf-8')
+  return writeFile(`./assets/${name}.svg`, data, 'utf-8')
 }
 
 const makeBadgeSvg = ({ label, message, color, badgeStyle }) => {
@@ -72146,7 +72146,7 @@ const makeBadgeSvg = ({ label, message, color, badgeStyle }) => {
     style: badgeStyle, //'plastic', 'flat', 'flat-square', 'for-the-badge' or 'social'
   })
 
-  writeLocalFile(label, svg)
+  // writeLocalFile(label, svg)
   return svg
 }
 
@@ -72164,7 +72164,7 @@ const textBetweenTwoStrings = (text, str1, str2) => {
 
 const updateReadme = async ({ mdName, badgesMdText }) => {
   const replacingText = START_REPLACE_STR + '\n\n' + badgesMdText + '\n\n' + END_REPLACE_STR
-  const currentReadme = external_fs_.readFile(mdName, 'utf-8')
+  const currentReadme = await (0,external_node_fs_promises_namespaceObject.readFile)(mdName, 'utf-8')
 
   const newReadme = currentReadme.includes(END_REPLACE_STR)
     ? currentReadme.replace(
@@ -72173,7 +72173,7 @@ const updateReadme = async ({ mdName, badgesMdText }) => {
       )
     : currentReadme.replace(START_REPLACE_STR, replacingText)
 
-  external_fs_.writeFile(mdName, newReadme, 'utf-8')
+  await (0,external_node_fs_promises_namespaceObject.writeFile)(mdName, newReadme, 'utf-8')
 }
 
 /* harmony default export */ const src_updateReadme = (updateReadme);
@@ -72245,7 +72245,7 @@ const getLighthouseReport = async ({ url, mdName, badgeStyle }) => {
   }
 
   const badges = Object.entries(lighthouseReport).map(([key, value]) => {
-    const percentValue = value.float(2) * 100
+    const percentValue = value.toFixed(2) * 100
     return makeBadge({
       label: key,
       message: percentValue,
