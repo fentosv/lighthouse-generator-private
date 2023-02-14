@@ -72152,7 +72152,10 @@ const makeBadgeSvg = ({ label, message, color, badgeStyle }) => {
 
 /* harmony default export */ const makeBadge = (makeBadgeSvg);
 
+;// CONCATENATED MODULE: external "node:path"
+const external_node_path_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:path");
 ;// CONCATENATED MODULE: ./src/updateReadme.js
+
 
 
 const START_REPLACE_STR = '<!-- lightouse-badges:start -->'
@@ -72174,7 +72177,7 @@ const updateReadme = async ({ mdName, badgesMdText }) => {
     : currentReadme.replace(START_REPLACE_STR, replacingText)
 
   const mdFilePath = process.env.GITHUB_WORKSPACE
-    ? path.join(process.env.GITHUB_WORKSPACE, mdName)
+    ? external_node_path_namespaceObject.join(process.env.GITHUB_WORKSPACE, mdName)
     : mdName
 
   await (0,external_node_fs_promises_namespaceObject.writeFile)(mdFilePath, newReadme, 'utf-8')

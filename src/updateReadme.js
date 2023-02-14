@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import path from 'node:path'
 
 const START_REPLACE_STR = '<!-- lightouse-badges:start -->'
 const END_REPLACE_STR = '<!-- lightouse-badges:end -->'
