@@ -27,8 +27,6 @@ runs:
   steps:
     - run: node ${{ github.action_path }}/dist/index.js
       shell: bash
-    - run: echo Hello ${{ inputs.name }}
-      shell: bash
     - name: Push
       shell: bash
       run: |
