@@ -72031,7 +72031,8 @@ async function run() {
     const url = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('url')
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Getting Lighthouse report for ${url}...`)
 
-    ;(0,_getLighthouseReport_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)({ url, badgeStyle, mdName })
+    console.log('Getting Lighthouse report')
+    await (0,_getLighthouseReport_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)({ url, badgeStyle, mdName })
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(new Date().toTimeString())
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('time', new Date().toTimeString())
   } catch (error) {

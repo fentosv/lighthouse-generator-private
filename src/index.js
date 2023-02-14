@@ -10,7 +10,8 @@ async function run() {
     const url = core.getInput('url')
     core.info(`Getting Lighthouse report for ${url}...`)
 
-    getLighthouseReport({ url, badgeStyle, mdName })
+    console.log('Getting Lighthouse report')
+    await getLighthouseReport({ url, badgeStyle, mdName })
     core.info(new Date().toTimeString())
     core.setOutput('time', new Date().toTimeString())
   } catch (error) {
