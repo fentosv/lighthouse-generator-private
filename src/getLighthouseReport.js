@@ -45,7 +45,7 @@ const percentToColor = (number) => {
   return '#FF0000'
 }
 
-const getLighthouseReport = async ({ url, mdName }) => {
+const getLighthouseReport = async ({ url, mdName, badgeStyle }) => {
   const runnerResult = await lighthouse(url, options, config)
 
   // `.lhr` is the Lighthouse Result as a JS object
@@ -65,7 +65,12 @@ const getLighthouseReport = async ({ url, mdName }) => {
 
   const badges = Object.entries(lighthouseReport).map(([key, value]) => {
     const percentValue = value.float(2) * 100
-    return makeBadgeSvg({ label: key, message: percentValue, color: percentToColor(percentValue) })
+    return makeBadgeSvg({
+      label: key,
+      message: percentValue,
+      color: percentToColor(percentValue),
+      badgeStyle,
+    })
   })
 
   updateReadme({ mdName, badgesMdText: badges.join('\n') })
@@ -73,4 +78,5 @@ const getLighthouseReport = async ({ url, mdName }) => {
   await chrome.kill()
 }
 
+export default getLighthouseReport
 // getLighthouseReport({ url: 'https://doscuadrados.es', mdName: 'TEMPLATE.md' })

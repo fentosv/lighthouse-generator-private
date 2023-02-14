@@ -1,25 +1,20 @@
 name: 'lighthouse-badges-generator'
 description: 'Greet someone and record the time'
 inputs:
-  commitMessage:
-    description: 'Commit message'
-    required: true
-    default: '🚦 Add lighthouse bagdes!'
-  commitAuthor:
-    description: 'Commit author'
-    required: true
-    default: 'lighthouse-bot'
   badgeStyle:
     description: 'Badge Style: plastic, flat, flat-square, for-the-badge or social'
-    required: true
     default: 'plastic'
   mdName:
     description: 'Name or file path to the MD file'
-    required: true
     default: 'README.md'
   url:
     description: 'URL to audit'
-    required: true
+  commitMessage:
+    description: 'Commit message'
+    default: '🚦 Add lighthouse bagdes!'
+  commitAuthor:
+    description: 'Commit author'
+    default: 'lighthouse-bot'
 
 outputs:
   time: # id of output
