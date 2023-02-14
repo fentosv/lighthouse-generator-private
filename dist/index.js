@@ -72287,6 +72287,8 @@ async function run() {
     core.info(new Date().toTimeString())
     core.setOutput('time', new Date().toTimeString())
   } catch (error) {
+    console.log('Error:')
+    console.log(error.message)
     core.setFailed(error.message)
   }
 }
